@@ -6,15 +6,16 @@ let state = {
         x: 1,
         y: 1
     },
-    w: 10,
-    h: 4
+    w: 16,
+    h: 8
 };
 draw(state);
 // set in raw mode and capture key strokes
 process.stdin.setRawMode(true);
 process.stdin.on('data', (data) => {
     let input = data.toString().trim(),
-    pos = state.player;
+    pos = state.player,
+    map = state;
     if (input === 'd') {
         pos.x += 1;
     }
@@ -30,7 +31,7 @@ process.stdin.on('data', (data) => {
     if (input === 'x') {
         process.exit()
     }
-    pos.x = pos.x > pos.w ? pos.w : pos.x;
-    pos.y = pos.y > pos.h ? pos.h : pos.y;
+    pos.x = pos.x > map.w ? map.w : pos.x;
+    pos.y = pos.y > map.h ? map.h : pos.y;
     draw(state);
 });

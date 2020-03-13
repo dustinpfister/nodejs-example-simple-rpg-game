@@ -26,10 +26,10 @@ module.exports = (state, out) => {
     setCur(1, 1, out);
     colorsSet(out);
     // draw area
-    out.write('..........\n');
-    out.write('..........\n');
-    out.write('..........\n');
-    out.write('..........\n');
+    //out.write('..........\n');
+    //out.write('..........\n');
+    //out.write('..........\n');
+    //out.write('..........\n');
     out.write('move: wasd; exit: x');
     // draw at symbol
     let pos = state.player;
