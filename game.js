@@ -1,5 +1,4 @@
-let out = process.stdout,
-draw = require('./draw.js');
+let draw = require('./draw.js');
 
 // start position
 let pos = {
@@ -30,5 +29,5 @@ process.stdin.on('data', (data) => {
     }
     pos.x = pos.x > pos.w ? pos.w: pos.x;
     pos.y = pos.y > pos.h ? pos.h: pos.y;
-    draw(pos, out);
+    draw(pos);
 });
