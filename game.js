@@ -6,6 +6,11 @@ let state = {
         x: 1,
         y: 1
     },
+    enemies: [{
+            x: 7,
+            y: 3
+        }
+    ],
     w: 16,
     h: 8
 };

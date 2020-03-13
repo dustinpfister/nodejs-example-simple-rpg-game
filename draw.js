@@ -27,6 +27,12 @@ let drawDotMap = function (state, out) {
     }
 };
 
+let drawPlayer = function (state, out) {
+    let pos = state.player;
+    setCur(pos.x, pos.y, out);
+    out.write('@');
+};
+
 // draw the area and at symbol
 module.exports = (state, out) => {
 
@@ -38,10 +44,12 @@ module.exports = (state, out) => {
     // draw info
     out.write('move: wasd; exit: x');
 
+    drawPlayer(state, out);
+
     // draw at symbol
-    let pos = state.player;
-    setCur(pos.x, pos.y, out);
-    out.write('@');
+    //let pos = state.player;
+    //setCur(pos.x, pos.y, out);
+    //out.write('@');
 
     // set default colors and set cursor to the bottom
     colorsDefault(out);
