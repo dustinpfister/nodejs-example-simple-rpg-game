@@ -29,28 +29,21 @@ let drawDotMap = function (state, out) {
 
 // draw the area and at symbol
 module.exports = (state, out) => {
-    out = out || process.stdout;
-    state = state || {};
-    state.x = state.x || 1;
-    state.y = state.y || 1;
 
+    out = out || process.stdout;
+
+    // draw a dot map for the whole render area
     drawDotMap(state, out);
 
-    /*
-    clearScreen(out);
-    setCur(1, 1, out);
-    colorsSet(out);
-     */
-    // draw area
-    //out.write('..........\n');
-    //out.write('..........\n');
-    //out.write('..........\n');
-    //out.write('..........\n');
+    // draw info
     out.write('move: wasd; exit: x');
+
     // draw at symbol
     let pos = state.player;
     setCur(pos.x, pos.y, out);
     out.write('@');
+
+    // set default colors and set cursor to the bottom
     colorsDefault(out);
     setCur(0, state.h + 1, out);
 };
