@@ -33,6 +33,18 @@ let drawPlayer = function (state, out) {
     out.write('@');
 };
 
+let drawEnemies = function (state, out) {
+
+    let enemies = state.enemies,
+    i = enemies.length;
+    while (i--) {
+        let e = enemies[i];
+        setCur(e.x, e.y, out);
+        out.write('E');
+    }
+
+};
+
 // draw the area and at symbol
 module.exports = (state, out) => {
 
@@ -44,12 +56,10 @@ module.exports = (state, out) => {
     // draw info
     out.write('move: wasd; exit: x');
 
-    drawPlayer(state, out);
+    drawEnemies(state, out);
 
-    // draw at symbol
-    //let pos = state.player;
-    //setCur(pos.x, pos.y, out);
-    //out.write('@');
+    // draw player
+    drawPlayer(state, out);
 
     // set default colors and set cursor to the bottom
     colorsDefault(out);
