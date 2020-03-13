@@ -4,11 +4,13 @@ let draw = require('./draw.js');
 let state = {
     player: {
         x: 1,
-        y: 1
+        y: 1,
+        attack: 1
     },
     enemies: [{
             x: 7,
-            y: 3
+            y: 3,
+            hp: 1
         }
     ],
     w: 16,
@@ -20,7 +22,7 @@ draw(state);
 // return false if nothing is there
 // or a reference to the enemy object if there
 // is one
-let getEnemy = function (state, x, y) {
+let getEnemy = (state, x, y) => {
     let i = state.enemies.length;
     while (i--) {
         let e = state.enemies[i];
@@ -31,13 +33,28 @@ let getEnemy = function (state, x, y) {
     return false;
 };
 
+// purge any dead enemies
+let purgeDead = (state) => {
+
+    let i = state.enemies.length;
+    while (i--) {
+        let e = state.enemies[i];
+        if (e.hp <= 0) {
+
+            state.enemies.splice(i, 1);
+
+        }
+    }
+
+};
+
 let movementHandler = function (state, input) {
 
-    let pos = state.player,
+    let player = state.player,
     map = state,
 
-    tempX = pos.x,
-    tempY = pos.y;
+    tempX = player.x,
+    tempY = player.y;
     if (input === 'd') {
         tempX += 1;
     }
@@ -57,14 +74,15 @@ let movementHandler = function (state, input) {
     let e = getEnemy(state, tempX, tempY);
 
     if (!e) {
-
-        pos.x = tempX;
-        pos.y = tempY;
-
+        player.x = tempX;
+        player.y = tempY;
+    } else {
+        e.hp -= player.attack;
+        purgeDead(state);
     }
 
-    //pos.x = pos.x > map.w ? map.w : pos.x;
-    //pos.y = pos.y > map.h ? map.h : pos.y;
+    player.x = player.x > map.w ? map.w : player.x;
+    player.y = player.y > map.h ? map.h : player.y;
 
 };
 
