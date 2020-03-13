@@ -17,11 +17,11 @@ let colorsDefault = (out) => {
 };
 
 // draw the area and at symbol
-module.exports = (opt, out) => {
+module.exports = (state, out) => {
     out = out || process.stdout;
-    opt = opt || {};
-    opt.x = opt.x || 1;
-    opt.y = opt.y || 1;
+    state = state || {};
+    state.x = state.x || 1;
+    state.y = state.y || 1;
     clearScreen(out);
     setCur(1, 1, out);
     colorsSet(out);
@@ -32,7 +32,7 @@ module.exports = (opt, out) => {
     out.write('..........\n');
     out.write('move: wasd; exit: x');
     // draw at symbol
-    setCur(opt.x, opt.y, out);
+    setCur(state.x, state.y, out);
     out.write('@');
     colorsDefault(out);
     setCur(0, 6, out);
