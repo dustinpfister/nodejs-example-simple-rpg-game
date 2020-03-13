@@ -1,5 +1,8 @@
 let draw = require('./draw.js');
 
+const ENEMIES_MAX = 3,
+ENEMIES_SPAWN_MIN = 5;
+
 // game state
 let state = {
     player: {
@@ -10,9 +13,10 @@ let state = {
     enemies: [{
             x: 7,
             y: 3,
-            hp: 1
+            hp: 3
         }
     ],
+    lastSpawn: 0,
     w: 16,
     h: 8
 };
@@ -35,17 +39,32 @@ let getEnemy = (state, x, y) => {
 
 // purge any dead enemies
 let purgeDead = (state) => {
-
     let i = state.enemies.length;
     while (i--) {
         let e = state.enemies[i];
         if (e.hp <= 0) {
-
             state.enemies.splice(i, 1);
-
         }
     }
+};
 
+let spawnEnemy = (state, x, y) => {
+    x = x === undefined ? 1 : x;
+    y = y === undefined ? 5 : y;
+    if (state.lastSpawn >= ENEMIES_SPAWN_MIN) {
+        if (state.enemies.length < ENEMIES_MAX) {
+            let e = getEnemy(state, x, y);
+            if (!e) {
+                state.enemies.push({
+                    x: x,
+                    y: y,
+                    hp: 3
+                });
+            }
+        }
+        state.lastSpawn = 0;
+    }
+    state.lastSpawn += 1;
 };
 
 let movementHandler = function (state, input) {
@@ -80,6 +99,8 @@ let movementHandler = function (state, input) {
         e.hp -= player.attack;
         purgeDead(state);
     }
+
+    spawnEnemy(state);
 
     player.x = player.x > map.w ? map.w : player.x;
     player.y = player.y > map.h ? map.h : player.y;
