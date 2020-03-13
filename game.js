@@ -10,11 +10,10 @@ let state = {
     h: 8
 };
 draw(state);
-// set in raw mode and capture key strokes
-process.stdin.setRawMode(true);
-process.stdin.on('data', (data) => {
-    let input = data.toString().trim(),
-    pos = state.player,
+
+let movementHandler = function (state, input) {
+
+    let pos = state.player,
     map = state;
     if (input === 'd') {
         pos.x += 1;
@@ -33,5 +32,15 @@ process.stdin.on('data', (data) => {
     }
     pos.x = pos.x > map.w ? map.w : pos.x;
     pos.y = pos.y > map.h ? map.h : pos.y;
+
+};
+
+// set in raw mode and capture key strokes
+process.stdin.setRawMode(true);
+process.stdin.on('data', (data) => {
+    let input = data.toString().trim();
+
+    movementHandler(state, input);
+
     draw(state);
 });
