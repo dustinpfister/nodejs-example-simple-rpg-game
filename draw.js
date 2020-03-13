@@ -32,7 +32,8 @@ module.exports = (state, out) => {
     out.write('..........\n');
     out.write('move: wasd; exit: x');
     // draw at symbol
-    setCur(state.x, state.y, out);
+    let pos = state.player;
+    setCur(pos.x, pos.y, out);
     out.write('@');
     colorsDefault(out);
     setCur(0, 6, out);

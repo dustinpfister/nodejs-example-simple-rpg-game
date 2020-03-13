@@ -1,17 +1,20 @@
 let draw = require('./draw.js');
 
-// start position
-let pos = {
-    x: 1,
-    y: 1,
+// game state
+let state = {
+    player: {
+        x: 1,
+        y: 1
+    },
     w: 10,
     h: 4
 };
-draw(pos);
+draw(state);
 // set in raw mode and capture key strokes
 process.stdin.setRawMode(true);
 process.stdin.on('data', (data) => {
-    let input = data.toString().trim();
+    let input = data.toString().trim(),
+    pos = state.player;
     if (input === 'd') {
         pos.x += 1;
     }
@@ -27,7 +30,7 @@ process.stdin.on('data', (data) => {
     if (input === 'x') {
         process.exit()
     }
-    pos.x = pos.x > pos.w ? pos.w: pos.x;
-    pos.y = pos.y > pos.h ? pos.h: pos.y;
-    draw(pos);
+    pos.x = pos.x > pos.w ? pos.w : pos.x;
+    pos.y = pos.y > pos.h ? pos.h : pos.y;
+    draw(state);
 });
