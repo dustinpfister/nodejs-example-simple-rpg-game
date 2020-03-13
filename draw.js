@@ -34,7 +34,6 @@ let drawPlayer = function (state, out) {
 };
 
 let drawEnemies = function (state, out) {
-
     let enemies = state.enemies,
     i = enemies.length;
     while (i--) {
@@ -42,7 +41,6 @@ let drawEnemies = function (state, out) {
         setCur(e.x, e.y, out);
         out.write('E');
     }
-
 };
 
 // draw the area and at symbol

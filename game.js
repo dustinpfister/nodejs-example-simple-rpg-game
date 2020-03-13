@@ -16,27 +16,55 @@ let state = {
 };
 draw(state);
 
+// check if an enemy is at the given pos
+// return false if nothing is there
+// or a reference to the enemy object if there
+// is one
+let getEnemy = function (state, x, y) {
+    let i = state.enemies.length;
+    while (i--) {
+        let e = state.enemies[i];
+        if (e.x === x && e.y === y) {
+            return e;
+        }
+    }
+    return false;
+};
+
 let movementHandler = function (state, input) {
 
     let pos = state.player,
-    map = state;
+    map = state,
+
+    tempX = pos.x,
+    tempY = pos.y;
     if (input === 'd') {
-        pos.x += 1;
+        tempX += 1;
     }
     if (input === 'a') {
-        pos.x -= 1;
+        tempX -= 1;
     }
     if (input === 'w') {
-        pos.y -= 1;
+        tempY -= 1;
     }
     if (input === 's') {
-        pos.y += 1;
+        tempY += 1;
     }
     if (input === 'x') {
         process.exit()
     }
-    pos.x = pos.x > map.w ? map.w : pos.x;
-    pos.y = pos.y > map.h ? map.h : pos.y;
+
+    let e = getEnemy(state, tempX, tempY);
+
+    if (!e) {
+
+        pos.x = tempX;
+        pos.y = tempY;
+
+    }
+
+    //pos.x = pos.x > map.w ? map.w : pos.x;
+    //pos.y = pos.y > map.h ? map.h : pos.y;
 
 };
 
