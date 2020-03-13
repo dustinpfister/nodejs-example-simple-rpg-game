@@ -16,15 +16,31 @@ let colorsDefault = (out) => {
     out.write('\u001b[39m\u001b[49m');
 };
 
+let drawDotMap = function (state, out) {
+    let dotLine = new Array(state.w).fill('.').join('') + '\n',
+    i = state.h;
+    clearScreen(out);
+    setCur(1, 1, out);
+    colorsSet(out);
+    while (i--) {
+        out.write(dotLine);
+    }
+};
+
 // draw the area and at symbol
 module.exports = (state, out) => {
     out = out || process.stdout;
     state = state || {};
     state.x = state.x || 1;
     state.y = state.y || 1;
+
+    drawDotMap(state, out);
+
+    /*
     clearScreen(out);
     setCur(1, 1, out);
     colorsSet(out);
+     */
     // draw area
     //out.write('..........\n');
     //out.write('..........\n');
@@ -36,5 +52,5 @@ module.exports = (state, out) => {
     setCur(pos.x, pos.y, out);
     out.write('@');
     colorsDefault(out);
-    setCur(0, 6, out);
+    setCur(0, state.h + 1, out);
 };
