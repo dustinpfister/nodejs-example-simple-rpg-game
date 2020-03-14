@@ -2,9 +2,6 @@ let draw = require('./lib/draw.js'),
 stateMod = require('./lib/state.js'),
 enemies = require('./lib/enemies.js');
 
-// new state
-//let state = stateMod.newState();
-
 stateMod.loadState()
 .then((state) => {
 
