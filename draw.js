@@ -52,7 +52,8 @@ module.exports = (state, out) => {
     drawDotMap(state, out);
 
     // draw info
-    out.write('move: wasd; exit: x');
+    out.write(state.player.exp + '\n');
+    out.write('move: wasd; exit: x\n');
 
     drawEnemies(state, out);
 
@@ -61,5 +62,5 @@ module.exports = (state, out) => {
 
     // set default colors and set cursor to the bottom
     colorsDefault(out);
-    setCur(0, state.h + 1, out);
+    setCur(0, state.h + 2, out);
 };

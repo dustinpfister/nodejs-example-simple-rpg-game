@@ -6,7 +6,8 @@ let state = {
     player: {
         x: 5,
         y: 5,
-        attack: 1
+        attack: 1,
+        exp: 0
     },
     enemies: [],
     lastSpawn: 0,

@@ -38,6 +38,7 @@ exports.purgeDead = (state) => {
     while (i--) {
         let e = state.enemies[i];
         if (e.hp <= 0) {
+            state.player.exp += 1;
             state.enemies.splice(i, 1);
         }
     }
