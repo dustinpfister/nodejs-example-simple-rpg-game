@@ -30,6 +30,8 @@ stateMod.loadState()
         // move or attack enemy
         let e = enemies.getEnemy(state, tempX, tempY);
         if (!e) {
+            player.oldX = player.x;
+            player.oldY = player.y;
             player.x = tempX;
             player.y = tempY;
         } else {
