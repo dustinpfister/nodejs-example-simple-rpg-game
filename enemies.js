@@ -81,7 +81,7 @@ let dirToPos = (obj, dir) => {
         x: obj.x + dx,
         y: obj.y + dy
     };
-}
+};
 
 let toPlayerPos = (state, e) => {
     return dirToPos(e, getDirToPlayer(state, e));
@@ -92,24 +92,18 @@ let toRandomPos = (state, e) => {
 };
 
 exports.updateEnemies = (state) => {
-
     let i = state.enemies.length;
     while (i--) {
-
         let e = state.enemies[i],
         d = distance(e.x, e.y, state.player.x, state.player.y),
         pos = d <= e.sight ? toPlayerPos(state, e) : toRandomPos(state, e);
-
         if (isOverNothing(state, pos.x, pos.y)) {
             e.x = pos.x;
             e.y = pos.y;
         }
-
         e.x = e.x > state.w ? state.w : e.x;
         e.y = e.y > state.h ? state.h : e.y;
         e.x = e.x < 1 ? 1 : e.x;
         e.y = e.y < 1 ? 1 : e.y;
-
     }
-
-}
+};

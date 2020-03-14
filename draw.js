@@ -51,8 +51,9 @@ module.exports = (state, out) => {
     // draw a dot map for the whole render area
     drawDotMap(state, out);
 
+    let player = state.player;
     // draw info
-    out.write(state.player.exp + '\n');
+    out.write('hp: ' + player.hp + '/' + player.hpMax + ', exp: ' + player.exp + '\n');
     out.write('move: wasd; exit: x\n');
 
     drawEnemies(state, out);

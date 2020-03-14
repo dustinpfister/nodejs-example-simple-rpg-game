@@ -10,6 +10,8 @@ let newState = exports.newState = () => {
             x: 5,
             y: 5,
             attack: 1,
+            hp: 100,
+            hpMax: 100,
             exp: 0
         },
         enemies: [],
