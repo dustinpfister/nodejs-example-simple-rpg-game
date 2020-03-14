@@ -5,20 +5,22 @@ read = promisify(fs.readFile),
 write = promisify(fs.writeFile);
 
 let newState = exports.newState = () => {
+
     return {
         player: {
-            x: 5,
-            y: 5,
+            x: 9,
+            y: 4,
             attack: 1,
-            hp: 100,
+            hp: 10,
             hpMax: 100,
             exp: 0
         },
         enemies: [],
         lastSpawn: 0,
-        w: 16,
-        h: 8
+        w: 17,
+        h: 7
     };
+
 };
 
 exports.loadState = (root, fileName) => {

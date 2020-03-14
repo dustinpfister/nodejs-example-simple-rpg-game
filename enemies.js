@@ -109,11 +109,10 @@ exports.updateEnemies = (state) => {
         e.x = e.x < 1 ? 1 : e.x;
         e.y = e.y < 1 ? 1 : e.y;
 
+        // attack player
         if (d <= ENEMIES_ATTACK_RANGE) {
-
             player.hp -= e.attack;
             player.hp = player.hp < 0 ? 0 : player.hp;
-
         };
 
     }

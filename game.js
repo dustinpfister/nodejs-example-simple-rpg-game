@@ -49,6 +49,12 @@ stateMod.loadState()
 
         enemies.updateEnemies(state);
 
+        // if player dies, start over
+        if (player.hp === 0) {
+            let newState = stateMod.newState();
+            state = Object.assign(state, newState);
+        }
+
         stateMod.saveState(state);
 
     };
