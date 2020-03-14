@@ -59,7 +59,8 @@ exports.spawnEnemy = (state, x, y) => {
                 state.enemies.push({
                     x: x,
                     y: y,
-                    hp: 3
+                    hp: 3,
+                    sight: 4
                 });
             }
         }
@@ -97,7 +98,7 @@ exports.updateEnemies = (state) => {
 
         let e = state.enemies[i],
         d = distance(e.x, e.y, state.player.x, state.player.y),
-        pos = d <= 3 ? toPlayerPos(state, e) : toRandomPos(state, e);
+        pos = d <= e.sight ? toPlayerPos(state, e) : toRandomPos(state, e);
 
         if (isOverNothing(state, pos.x, pos.y)) {
             e.x = pos.x;
