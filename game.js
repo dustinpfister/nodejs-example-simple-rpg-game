@@ -6,21 +6,25 @@ ENEMIES_SPAWN_MIN = 5;
 // game state
 let state = {
     player: {
-        x: 1,
-        y: 1,
+        x: 5,
+        y: 5,
         attack: 1
     },
-    enemies: [{
-            x: 7,
-            y: 3,
-            hp: 3
-        }
-    ],
+    enemies: [],
     lastSpawn: 0,
     w: 16,
     h: 8
 };
 draw(state);
+
+let getDirToPlayer = (state, eIndex) => {
+    let e = typeof eIndex === 'object' ? eIndex : state.enemies[eIndex],
+    player = state.player,
+    r = Math.atan2(e.y - player.y, e.x - player.x) + Math.PI,
+    per = r / (Math.PI * 2),
+    dir = Math.floor(4 * per) % 4;
+    return dir;
+};
 
 // check if an enemy is at the given pos
 // return false if nothing is there
@@ -108,12 +112,11 @@ let movementHandler = function (state, input) {
 
 };
 
-// set in raw mode and capture key strokes
+//set in raw mode and capture key strokes
 process.stdin.setRawMode(true);
 process.stdin.on('data', (data) => {
     let input = data.toString().trim();
-
     movementHandler(state, input);
-
     draw(state);
 });
+console.log( getDirToPlayer(state, {x:2,y:2}) );
