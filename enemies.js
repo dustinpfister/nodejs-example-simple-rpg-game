@@ -1,26 +1,10 @@
-let draw = require('./draw.js'),
-enemies = require('./enemies.js');
 
 const ENEMIES_MAX = 3,
 ENEMIES_SPAWN_MIN = 5;
 
-// game state
-let state = {
-    player: {
-        x: 5,
-        y: 5,
-        attack: 1
-    },
-    enemies: [],
-    lastSpawn: 0,
-    w: 16,
-    h: 8
-};
-draw(state);
-/*
 // get the direction to the player with the given state object
 // and enemy object or index in state object
-let getDirToPlayer = (state, eIndex) => {
+exports.getDirToPlayer = (state, eIndex) => {
     let e = typeof eIndex === 'object' ? eIndex : state.enemies[eIndex],
     player = state.player,
     r = Math.atan2(e.y - player.y, e.x - player.x) + Math.PI,
@@ -33,7 +17,7 @@ let getDirToPlayer = (state, eIndex) => {
 // return false if nothing is there
 // or a reference to the enemy object if there
 // is one
-let getEnemy = (state, x, y) => {
+let getEnemy = exports.getEnemy = (state, x, y) => {
     let i = state.enemies.length;
     while (i--) {
         let e = state.enemies[i];
@@ -45,7 +29,7 @@ let getEnemy = (state, x, y) => {
 };
 
 // purge any dead enemies
-let purgeDead = (state) => {
+exports.purgeDead = (state) => {
     let i = state.enemies.length;
     while (i--) {
         let e = state.enemies[i];
@@ -55,7 +39,7 @@ let purgeDead = (state) => {
     }
 };
 
-let spawnEnemy = (state, x, y) => {
+exports.spawnEnemy = (state, x, y) => {
     x = x === undefined ? 1 : x;
     y = y === undefined ? 5 : y;
     if (state.lastSpawn >= ENEMIES_SPAWN_MIN) {
@@ -74,51 +58,3 @@ let spawnEnemy = (state, x, y) => {
     }
     state.lastSpawn += 1;
 };
-*/
-let movementHandler = function (state, input) {
-
-    let player = state.player,
-    map = state,
-
-    tempX = player.x,
-    tempY = player.y;
-    if (input === 'd') {
-        tempX += 1;
-    }
-    if (input === 'a') {
-        tempX -= 1;
-    }
-    if (input === 'w') {
-        tempY -= 1;
-    }
-    if (input === 's') {
-        tempY += 1;
-    }
-    if (input === 'x') {
-        process.exit()
-    }
-
-    let e = enemies.getEnemy(state, tempX, tempY);
-
-    if (!e) {
-        player.x = tempX;
-        player.y = tempY;
-    } else {
-        e.hp -= player.attack;
-        enemies.purgeDead(state);
-    }
-
-    enemies.spawnEnemy(state);
-
-    player.x = player.x > map.w ? map.w : player.x;
-    player.y = player.y > map.h ? map.h : player.y;
-
-};
-
-//set in raw mode and capture key strokes
-process.stdin.setRawMode(true);
-process.stdin.on('data', (data) => {
-    let input = data.toString().trim();
-    movementHandler(state, input);
-    draw(state);
-});
