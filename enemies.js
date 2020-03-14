@@ -68,6 +68,10 @@ exports.spawnEnemy = (state, x, y) => {
     state.lastSpawn += 1;
 };
 
+let distance = (x1, y1, x2, y2) => {
+    return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+};
+
 let dirToPos = (obj, dir) => {
     let r = Math.PI * 2 / 4 * dir,
     dx = Math.round(Math.cos(r)),
@@ -80,29 +84,10 @@ let dirToPos = (obj, dir) => {
 
 let toPlayerPos = (state, e) => {
     return dirToPos(e, getDirToPlayer(state, e));
-    /*
-    r = Math.PI * 2 / 4 * dir,
-    dx = Math.round(Math.cos(r)),
-    dy = Math.round(Math.sin(r));
-    return {
-    x: e.x + dx,
-    y: e.y + dy
-    };
-     */
 };
 
 let toRandomPos = (state, e) => {
     return dirToPos(e, Math.floor(Math.random() * 4));
-    /*
-    let dir = Math.floor(Math.random() * 4);
-    r = Math.PI * 2 / 4 * dir,
-    dx = Math.round(Math.cos(r)),
-    dy = Math.round(Math.sin(r));
-    return {
-    x: e.x + dx,
-    y: e.y + dy
-    };
-     */
 };
 
 exports.updateEnemies = (state) => {
@@ -111,8 +96,8 @@ exports.updateEnemies = (state) => {
     while (i--) {
 
         let e = state.enemies[i],
-        pos = toPlayerPos(state, e);
-        //pos = toRandomPos(state, e);
+        d = distance(e.x, e.y, state.player.x, state.player.y),
+        pos = d <= 3 ? toPlayerPos(state, e) : toRandomPos(state, e);
 
         if (isOverNothing(state, pos.x, pos.y)) {
             e.x = pos.x;
