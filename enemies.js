@@ -1,6 +1,7 @@
 
 const ENEMIES_MAX = 3,
-ENEMIES_SPAWN_MIN = 5;
+ENEMIES_SPAWN_MIN = 5,
+ENEMIES_ATTACK_RANGE = 1
 
 let isOverPlayer = (state, x, y) => {
     return x === state.player.x && y === state.player.y;
@@ -108,7 +109,7 @@ exports.updateEnemies = (state) => {
         e.x = e.x < 1 ? 1 : e.x;
         e.y = e.y < 1 ? 1 : e.y;
 
-        if (d <= 1) {
+        if (d <= ENEMIES_ATTACK_RANGE) {
 
             player.hp -= e.attack;
 
