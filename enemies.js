@@ -68,22 +68,28 @@ exports.spawnEnemy = (state, x, y) => {
     state.lastSpawn += 1;
 };
 
+let toPlayerPos = (state, e) => {
+    let dir = getDirToPlayer(state, e),
+    r = Math.PI * 2 / 4 * dir,
+    dx = Math.round(Math.cos(r)),
+    dy = Math.round(Math.sin(r));
+    return {
+        x: e.x + dx,
+        y: e.y + dy
+    };
+};
+
 exports.updateEnemies = (state) => {
 
     let i = state.enemies.length;
     while (i--) {
 
         let e = state.enemies[i],
-        dir = getDirToPlayer(state, e),
-        r = Math.PI * 2 / 4 * dir,
-        dx = Math.round(Math.cos(r)),
-        dy = Math.round(Math.sin(r)),
-        tempX = e.x + dx,
-        tempY = e.y + dy;
+        pos = toPlayerPos(state, e);
 
-        if (isOverNothing(state, tempX, tempY)) {
-            e.x = tempX;
-            e.y = tempY;
+        if (isOverNothing(state, pos.x, pos.y)) {
+            e.x = pos.x;
+            e.y = pos.y;
         }
 
     }
