@@ -1,6 +1,6 @@
-let draw = require('./draw.js'),
-stateMod = require('./state.js'),
-enemies = require('./enemies.js');
+let draw = require('./lib/draw.js'),
+stateMod = require('./lib/state.js'),
+enemies = require('./lib/enemies.js');
 
 // new state
 //let state = stateMod.newState();
