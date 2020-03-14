@@ -52,7 +52,8 @@ let spawnEnemy = (state, x, y) => {
     x = x === undefined ? 1 : x;
     y = y === undefined ? 5 : y;
     if (state.lastSpawn >= ENEMIES_SPAWN_MIN) {
-        if (state.enemies.length < ENEMIES_MAX) {
+        let playerOver = x === state.player.x && y === state.player.y;
+        if (state.enemies.length < ENEMIES_MAX && !playerOver) {
             let e = getEnemy(state, x, y);
             if (!e) {
                 state.enemies.push({
