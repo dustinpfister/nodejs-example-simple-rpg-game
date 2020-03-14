@@ -60,7 +60,8 @@ exports.spawnEnemy = (state, x, y) => {
                     x: x,
                     y: y,
                     hp: 3,
-                    sight: 4
+                    sight: 4,
+                    attack: 1
                 });
             }
         }
@@ -95,7 +96,8 @@ exports.updateEnemies = (state) => {
     let i = state.enemies.length;
     while (i--) {
         let e = state.enemies[i],
-        d = distance(e.x, e.y, state.player.x, state.player.y),
+        player = state.player,
+        d = distance(e.x, e.y, player.x, player.y),
         pos = d <= e.sight ? toPlayerPos(state, e) : toRandomPos(state, e);
         if (isOverNothing(state, pos.x, pos.y)) {
             e.x = pos.x;
@@ -105,5 +107,12 @@ exports.updateEnemies = (state) => {
         e.y = e.y > state.h ? state.h : e.y;
         e.x = e.x < 1 ? 1 : e.x;
         e.y = e.y < 1 ? 1 : e.y;
+
+        if (d <= 1) {
+
+            player.hp -= e.attack;
+
+        };
+
     }
 };
