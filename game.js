@@ -40,9 +40,12 @@ stateMod.loadState()
         player = Object.assign(player, u.setBounds(state, player));
 
         if (player.autoHeal) {
-
-            player.hp += player.autoHeal;
-            player.hp = player.hp > player.hpMax ? player.hpMax : player.hp;
+            player.autoHealTicks += 1;
+            if (player.autoHealTicks >= player.autoHealEvery) {
+                player.hp += player.autoHeal;
+                player.hp = player.hp > player.hpMax ? player.hpMax : player.hp;
+                player.autoHealTicks = 0;
+            }
         }
 
         // call spawn enemies method
