@@ -6,6 +6,10 @@ let isOverPlayer = (state, x, y) => {
     return x === state.player.x && y === state.player.y;
 };
 
+let isOverNothing = (state, x, y) => {
+    return !isOverPlayer(state, x, y) && !getEnemy(state, x, y);
+};
+
 // get the direction to the player with the given state object
 // and enemy object or index in state object
 let getDirToPlayer = exports.getDirToPlayer = (state, eIndex) => {
@@ -77,7 +81,7 @@ exports.updateEnemies = (state) => {
         tempX = e.x + dx,
         tempY = e.y + dy;
 
-        if (!isOverPlayer(state, tempX, tempY) && !getEnemy(state, tempX, tempY)) {
+        if (isOverNothing(state, tempX, tempY)) {
             e.x = tempX;
             e.y = tempY;
         }
