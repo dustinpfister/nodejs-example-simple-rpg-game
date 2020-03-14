@@ -76,7 +76,7 @@ exports.updateEnemies = (state) => {
         tempX = e.x + dx,
         tempY = e.y + dy;
 
-        if (!isOverPlayer(state, tempX, tempY)) {
+        if (!isOverPlayer(state, tempX, tempY) && !getEnemy(state, tempX, tempY)) {
             e.x = tempX;
             e.y = tempY;
         }
