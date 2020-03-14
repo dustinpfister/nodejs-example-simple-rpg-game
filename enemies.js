@@ -79,18 +79,35 @@ let toPlayerPos = (state, e) => {
     };
 };
 
+let toRandomPos = (state, e) => {
+    let dir = Math.floor(Math.random() * 4);
+    r = Math.PI * 2 / 4 * dir,
+    dx = Math.round(Math.cos(r)),
+    dy = Math.round(Math.sin(r));
+    return {
+        x: e.x + dx,
+        y: e.y + dy
+    };
+};
+
 exports.updateEnemies = (state) => {
 
     let i = state.enemies.length;
     while (i--) {
 
         let e = state.enemies[i],
-        pos = toPlayerPos(state, e);
+        //pos = toPlayerPos(state, e);
+        pos = toRandomPos(state, e);
 
         if (isOverNothing(state, pos.x, pos.y)) {
             e.x = pos.x;
             e.y = pos.y;
         }
+
+        e.x = e.x > state.w ? state.w : e.x;
+        e.y = e.y > state.h ? state.h : e.y;
+        e.x = e.x < 1 ? 1 : e.x;
+        e.y = e.y < 1 ? 1 : e.y;
 
     }
 
