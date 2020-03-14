@@ -70,8 +70,10 @@ stateMod.loadState()
     process.stdin.on('data', (data) => {
         let input = data.toString().trim();
         movementHandler(state, input);
-        draw(state);
+        //draw(state);
+		draw.updateScreen(state);
     });
-    draw(state);
+	draw.newScreen(state);
+    //draw(state);
 
 });
