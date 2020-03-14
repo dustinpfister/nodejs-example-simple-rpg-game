@@ -46,15 +46,16 @@ let movementHandler = function (state, input) {
         e.hp -= player.attack;
         enemies.purgeDead(state);
     }
-
-    // call spawn enemies method
-    enemies.spawnEnemy(state);
-	
-	enemies.updateEnemies(state);
-
     // player bounds
     player.x = player.x > map.w ? map.w : player.x;
     player.y = player.y > map.h ? map.h : player.y;
+    player.x = player.x < 1 ? 1 : player.x;
+    player.y = player.y < 1 ? 1 : player.y;
+
+    // call spawn enemies method
+    enemies.spawnEnemy(state);
+
+    enemies.updateEnemies(state);
 
 };
 
