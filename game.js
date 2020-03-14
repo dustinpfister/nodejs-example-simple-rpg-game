@@ -49,6 +49,8 @@ let movementHandler = function (state, input) {
 
     // call spawn enemies method
     enemies.spawnEnemy(state);
+	
+	enemies.updateEnemies(state);
 
     // player bounds
     player.x = player.x > map.w ? map.w : player.x;
