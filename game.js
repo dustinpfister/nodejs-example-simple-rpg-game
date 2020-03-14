@@ -1,4 +1,5 @@
-let draw = require('./lib/draw.js'),
+let u = require('./lib/utils.js'),
+draw = require('./lib/draw.js'),
 stateMod = require('./lib/state.js'),
 enemies = require('./lib/enemies.js');
 
@@ -36,10 +37,7 @@ stateMod.loadState()
             enemies.purgeDead(state);
         }
         // player bounds
-        player.x = player.x > state.w ? state.w : player.x;
-        player.y = player.y > state.h ? state.h : player.y;
-        player.x = player.x < 1 ? 1 : player.x;
-        player.y = player.y < 1 ? 1 : player.y;
+        player = Object.assign(player, u.setBounds(state, player));
 
         // call spawn enemies method
         enemies.spawnEnemy(state);
