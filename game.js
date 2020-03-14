@@ -59,6 +59,7 @@ stateMod.loadState()
         if (player.hp === 0) {
             let newState = stateMod.newState();
             state = Object.assign(state, newState);
+			draw.newScreen(state);
         }
 
         stateMod.saveState(state);
@@ -71,6 +72,7 @@ stateMod.loadState()
         let input = data.toString().trim();
         movementHandler(state, input);
         //draw(state);
+		//draw.newScreen(state);
 		draw.updateScreen(state);
     });
 	draw.newScreen(state);
