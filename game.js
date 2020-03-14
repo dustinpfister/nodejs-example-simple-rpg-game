@@ -18,8 +18,6 @@ let state = {
 let movementHandler = function (state, input) {
 
     let player = state.player,
-    map = state,
-
     tempX = player.x,
     tempY = player.y;
     if (input === 'd') {
@@ -48,8 +46,8 @@ let movementHandler = function (state, input) {
         enemies.purgeDead(state);
     }
     // player bounds
-    player.x = player.x > map.w ? map.w : player.x;
-    player.y = player.y > map.h ? map.h : player.y;
+    player.x = player.x > state.w ? state.w : player.x;
+    player.y = player.y > state.h ? state.h : player.y;
     player.x = player.x < 1 ? 1 : player.x;
     player.y = player.y < 1 ? 1 : player.y;
 
