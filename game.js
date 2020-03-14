@@ -49,6 +49,8 @@ stateMod.loadState()
 
         enemies.updateEnemies(state);
 
+        stateMod.saveState(state);
+
     };
 
     //set in raw mode and capture key strokes

@@ -1,7 +1,8 @@
 let path = require('path'),
 fs = require('fs'),
 promisify = require('util').promisify,
-read = promisify(fs.read);
+read = promisify(fs.read),
+write = promisify(fs.writeFile);
 
 let newState = exports.newState = () => {
     return {
@@ -29,4 +30,10 @@ exports.loadState = (root, fileName) => {
     .catch(() => {
         return newState();
     });
+};
+
+exports.saveState = (state, root, fileName) => {
+    root = root || process.cwd();
+    fileName = fileName || 'simple-rpg.json';
+    return write(path.join(root, fileName), JSON.stringify(state), 'utf8');
 };
