@@ -7,7 +7,6 @@ stateMod.loadState()
 .then((state) => {
 
     let movementHandler = (state, input) => {
-
         let player = state.player,
         tempX = player.x,
         tempY = player.y;
@@ -26,7 +25,6 @@ stateMod.loadState()
         if (input === 'x') {
             process.exit()
         }
-
         // move or attack enemy
         let e = enemies.getEnemy(state, tempX, tempY);
         if (!e) {
@@ -40,7 +38,7 @@ stateMod.loadState()
         }
         // player bounds
         player = Object.assign(player, u.setBounds(state, player));
-
+        // player auto heal
         if (player.autoHeal) {
             player.autoHealTicks += 1;
             if (player.autoHealTicks >= player.autoHealEvery) {
@@ -49,21 +47,17 @@ stateMod.loadState()
                 player.autoHealTicks = 0;
             }
         }
-
-        // call spawn enemies method
+        // spawn and update enemies
         enemies.spawnEnemy(state);
-
         enemies.updateEnemies(state);
-
         // if player dies, start over
         if (player.hp === 0) {
             let newState = stateMod.newState();
             state = Object.assign(state, newState);
-			draw.newScreen(state);
+            draw.newScreen(state);
         }
-
+        // save state
         stateMod.saveState(state);
-
     };
 
     //set in raw mode and capture key strokes
@@ -71,11 +65,8 @@ stateMod.loadState()
     process.stdin.on('data', (data) => {
         let input = data.toString().trim();
         movementHandler(state, input);
-        //draw(state);
-		//draw.newScreen(state);
-		draw.updateScreen(state);
+        draw.updateScreen(state);
     });
-	draw.newScreen(state);
-    //draw(state);
+    draw.newScreen(state);
 
 });
