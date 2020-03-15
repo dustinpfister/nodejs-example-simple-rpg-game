@@ -24,37 +24,10 @@ stateMod.loadState()
             tempY += 1;
         }
         if (input === 'x') {
-            process.exit()
+            process.exit();
         }
-		
-		playerMod.moveOrAttack(state, tempX, tempY);
-		playerMod.update(state);
-		
-        // move or attack enemy
-		/*
-        let e = enemies.getEnemy(state, tempX, tempY);
-        if (!e) {
-            player.oldX = player.x;
-            player.oldY = player.y;
-            player.x = tempX;
-            player.y = tempY;
-        } else {
-            e.hp -= player.attack;
-            enemies.purgeDead(state);
-        }
-        // player bounds
-        player = Object.assign(player, u.setBounds(state, player));
-		
-        // player auto heal
-        if (player.autoHeal) {
-            player.autoHealTicks += 1;
-            if (player.autoHealTicks >= player.autoHealEvery) {
-                player.hp += player.autoHeal;
-                player.hp = player.hp > player.hpMax ? player.hpMax : player.hp;
-                player.autoHealTicks = 0;
-            }
-        }
-		*/
+        // update player
+        playerMod.update(state, tempX, tempY);
         // spawn and update enemies
         enemies.spawnEnemy(state);
         enemies.updateEnemies(state);
