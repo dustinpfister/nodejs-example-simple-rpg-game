@@ -1,17 +1,15 @@
-let u = require('./lib/utils.js'),
-draw = require('./lib/draw.js'),
+let draw = require('./lib/draw.js'),
 stateMod = require('./lib/state.js'),
-playerMod = require('./lib/player.js'),
-enemies = require('./lib/enemies.js'),
 inputHandler = require('./lib/input.js');
 
 stateMod.loadState()
 .then((state) => {
     //set in raw mode and capture key strokes
     process.stdin.setRawMode(true);
+    // for each data event from the standard input
     process.stdin.on('data', (data) => {
-        let input = data.toString().trim();
-        inputHandler(state, input, {
+        // use the input handler
+        inputHandler(state, data.toString().trim(), {
             onPlayerDead: (state) => {
                 let player = state.player;
                 if (player.hp === 0) {
