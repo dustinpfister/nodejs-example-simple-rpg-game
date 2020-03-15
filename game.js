@@ -1,6 +1,7 @@
 let u = require('./lib/utils.js'),
 draw = require('./lib/draw.js'),
 stateMod = require('./lib/state.js'),
+playerMod = require('./lib/player.js'),
 enemies = require('./lib/enemies.js');
 
 stateMod.loadState()
@@ -25,7 +26,12 @@ stateMod.loadState()
         if (input === 'x') {
             process.exit()
         }
+		
+		playerMod.moveOrAttack(state, tempX, tempY);
+		playerMod.update(state);
+		
         // move or attack enemy
+		/*
         let e = enemies.getEnemy(state, tempX, tempY);
         if (!e) {
             player.oldX = player.x;
@@ -38,6 +44,7 @@ stateMod.loadState()
         }
         // player bounds
         player = Object.assign(player, u.setBounds(state, player));
+		
         // player auto heal
         if (player.autoHeal) {
             player.autoHealTicks += 1;
@@ -47,6 +54,7 @@ stateMod.loadState()
                 player.autoHealTicks = 0;
             }
         }
+		*/
         // spawn and update enemies
         enemies.spawnEnemy(state);
         enemies.updateEnemies(state);
