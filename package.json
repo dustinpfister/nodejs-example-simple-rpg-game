@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "A simple node RPG game example",
   "main": "game.js",
+  "bin":{
+    "simprpg": "./game.js"
+  },
   "directories": {
     "lib": "lib"
   },

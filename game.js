@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 let draw = require('./lib/draw.js'),
 stateMod = require('./lib/state.js'),
 inputHandler = require('./lib/input.js');
